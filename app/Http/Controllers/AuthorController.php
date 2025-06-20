@@ -13,7 +13,14 @@ class AuthorController extends Controller
 
         return response()->json([
             'message' => 'Author added successfully',
-            'data' => $author
+            'data' => [
+                'id' => $author->id,
+                'fName' => $author->FName,
+                'lName' => $author->LName,
+                'country' => $author->Country,
+                'city' => $author->City,
+                'address' => $author->Address,
+            ]
         ], 201);
     }
 
@@ -26,19 +33,29 @@ class AuthorController extends Controller
             ->orWhere('LName', 'like', "%{$query}%")
             ->get();
 
-        if ($authors->isEmpty()) {
-            return response()->json([
-                'message' => 'No authors found matching the query.',
-                'data' => []
-            ], 404);
-        }
-
         return response()->json([
             'message' => 'Search results',
-            'data' => $authors
-        ], 200);
+            'data' => $authors->map(function ($author) {
+                return [
+                    'id' => $author->id,
+                    'fName' => $author->FName,
+                    'lName' => $author->LName,
+                    'country' => $author->Country,
+                    'city' => $author->City,
+                    'address' => $author->Address,
+                    'books' => $author->books->map(function ($book) {
+                        return [
+                            'id' => $book->id,
+                            'title' => $book->Title,
+                            'type' => $book->Type,
+                            'price' => $book->Price,
+                            'coverImage' => $book->CoverImage,
+                        ];
+                    }),
+                ];
+            }),
+        ]);
     }
-
 
     public function showBooks($id)
     {
@@ -53,7 +70,20 @@ class AuthorController extends Controller
 
         return response()->json([
             'message' => 'Books by author retrieved successfully',
-            'data' => $author
-        ], 200);
+            'data' => [
+                'id' => $author->id,
+                'fName' => $author->FName,
+                'lName' => $author->LName,
+                'books' => $author->books->map(function ($book) {
+                    return [
+                        'id' => $book->id,
+                        'title' => $book->Title,
+                        'type' => $book->Type,
+                        'price' => $book->Price,
+                        'coverImage' => $book->CoverImage,
+                    ];
+                }),
+            ]
+        ]);
     }
 }

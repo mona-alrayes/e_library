@@ -13,7 +13,11 @@ class PublisherController extends Controller
 
         return response()->json([
             'message' => 'Publisher added successfully',
-            'data' => $publisher
+            'data' => [
+                'id' => $publisher->id,
+                'name' => $publisher->PName,
+                'country' => $publisher->Country,
+            ]
         ], 201);
     }
 
@@ -25,19 +29,26 @@ class PublisherController extends Controller
             ->where('PName', 'like', "%{$query}%")
             ->get();
 
-        if ($publishers->isEmpty()) {
-            return response()->json([
-                'message' => 'No publishers found matching the query.',
-                'data' => []
-            ], 404);
-        }
-
         return response()->json([
             'message' => 'Search results',
-            'data' => $publishers
-        ], 200);
+            'data' => $publishers->map(function ($publisher) {
+                return [
+                    'id' => $publisher->id,
+                    'name' => $publisher->PName,
+                    'country' => $publisher->Country,
+                    'books' => $publisher->books->map(function ($book) {
+                        return [
+                            'id' => $book->id,
+                            'title' => $book->Title,
+                            'type' => $book->Type,
+                            'price' => $book->Price,
+                            'coverImage' => $book->CoverImage,
+                        ];
+                    }),
+                ];
+            }),
+        ]);
     }
-
 
     public function showBooks($id)
     {
@@ -46,13 +57,26 @@ class PublisherController extends Controller
         if (!$publisher) {
             return response()->json([
                 'message' => 'Publisher not found',
-                'data' => null
+                'data' => null,
             ], 404);
         }
 
         return response()->json([
             'message' => 'Books by publisher retrieved successfully',
-            'data' => $publisher
-        ], 200);
+            'data' => [
+                'id' => $publisher->id,
+                'name' => $publisher->PName,
+                'country' => $publisher->Country,
+                'books' => $publisher->books->map(function ($book) {
+                    return [
+                        'id' => $book->id,
+                        'title' => $book->Title,
+                        'type' => $book->Type,
+                        'price' => $book->Price,
+                        'coverImage' => $book->CoverImage,
+                    ];
+                }),
+            ],
+        ]);
     }
 }

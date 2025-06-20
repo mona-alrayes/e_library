@@ -61,8 +61,9 @@ class BookController extends Controller
 
         $books = Book::with(['author', 'publisher'])
             ->where('Title', 'like', "%{$query}%")
-            ->get()
-            ->append('cover_image_url');
+            ->get();
+
+        $books->each->append('cover_image_url');
 
         return response()->json([
             'message' => 'Search results',

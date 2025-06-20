@@ -14,10 +14,20 @@ class AuthController extends Controller
     public function register(RegisterRequest $request)
     {
         $data = $request->validated();
-        $data['password'] = bcrypt($data['password']);
+        $data['password'] = Hash::make($data['password']); // Better than bcrypt()
         $user = User::create($data);
-        return response()->json(['message' => 'User registered successfully'], 201);
+
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json([
+            'user' => $user,
+            'authorisation' => [
+                'token' => $token,
+                'type' => 'bearer',
+            ]
+        ], 201);
     }
+
 
     public function login(LoginRequest $request)
     {
