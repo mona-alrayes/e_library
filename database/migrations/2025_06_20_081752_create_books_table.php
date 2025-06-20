@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('Type');
             $table->string('Price');
             $table->string('cover_image')->nullable();
-            $table->foreignId('Publisher_id')->constrained();
-            $table->foreignId('Author_id')->constrained();
+            $table->foreignId('publisher_id')->constrained('publishers');
+            $table->foreignId('author_id')->constrained('authors');
             $table->timestamps();
         });
     }
