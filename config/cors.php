@@ -19,7 +19,8 @@ return [
 
     'allowed_methods' => ['*'],
 
-'allowed_origins' => ['http://localhost:5000', 'http://127.0.0.1:5000', 'http://localhost:8000', 'http://localhost:3000', '*'], // add actual port if needed
+    'allowed_origins' => ['*'],
+    
     'allowed_origins_patterns' => [],
 
     'allowed_headers' => ['*'],
