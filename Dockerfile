@@ -31,7 +31,7 @@ RUN composer install --no-dev --optimize-autoloader
 # Set permissions
 RUN chown -R www-data:www-data /var/www && chmod -R 755 /var/www
 
-# Expose port 8000 and start Laravel
+# Expose port 8000 and start Laravel with migration + seeder
 EXPOSE 8000
 
-CMD php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=8000
+CMD php artisan migrate --force && php artisan db:seed --class=AdminUserSeeder && php artisan serve --host=0.0.0.0 --port=8000
