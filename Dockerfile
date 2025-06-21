@@ -34,4 +34,4 @@ RUN chown -R www-data:www-data /var/www && chmod -R 755 /var/www
 # Expose port 8000 and start Laravel with migration + seeder
 EXPOSE 8000
 
-CMD php artisan migrate:fresh --seed --seeder=AdminUserSeeder --force && php artisan serve --host=0.0.0.0 --port=8000
+CMD php artisan migrate:fresh --seed --force && php artisan serve --host=0.0.0.0 --port=8000

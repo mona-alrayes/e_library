@@ -21,5 +21,16 @@ class AdminUserSeeder extends Seeder
                 'is_admin' => true,
             ]
         );
+         User::updateOrCreate(
+            ['email' => 'mona@example.com'],  // unique identifier
+            [
+                'username' => 'mona_alrayes',
+                'FName' => 'mona',
+                'LName' => 'alrayes',
+                'email' => 'mona@example.com',
+                'password' => Hash::make('123456'), // change password to something secure!
+                'is_admin' => false,
+            ]
+        );
     }
 }
