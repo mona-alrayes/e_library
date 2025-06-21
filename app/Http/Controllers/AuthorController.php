@@ -29,8 +29,8 @@ class AuthorController extends Controller
         $query = request('name');
 
         $authors = Author::with('books')
-            ->where('FName', 'like', "%{$query}%")
-            ->orWhere('LName', 'like', "%{$query}%")
+            ->where('FName', 'ILIKE', "%{$query}%")
+            ->orWhere('LName', 'ILIKE', "%{$query}%")
             ->get();
 
         return response()->json([

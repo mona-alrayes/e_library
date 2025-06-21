@@ -26,7 +26,7 @@ class PublisherController extends Controller
         $query = request('name');
 
         $publishers = Publisher::with('books')
-            ->where('PName', 'like', "%{$query}%")
+            ->where('PName', 'ILIKE', "%{$query}%")
             ->get();
 
         return response()->json([

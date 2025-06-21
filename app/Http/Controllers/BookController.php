@@ -60,7 +60,7 @@ class BookController extends Controller
         $query = request('title');
 
         $books = Book::with(['author', 'publisher'])
-            ->where('Title', 'like', "%{$query}%")
+            ->where('Title', 'ILIKE', "%{$query}%")
             ->get();
 
         $books->each->append('cover_image_url');
