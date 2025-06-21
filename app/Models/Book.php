@@ -13,19 +13,19 @@ class Book extends Model
         'Title',
         'Type',
         'Price',
-        'Publisher_id',
-        'Author_id',
+        'publisher_id',
+        'author_id',
         'cover_image'
     ];
 
     public function author()
     {
-        return $this->belongsTo(Author::class, 'Author_id');
+        return $this->belongsTo(Author::class, 'author_id');
     }
 
     public function publisher()
     {
-        return $this->belongsTo(Publisher::class, 'Publisher_id');
+        return $this->belongsTo(Publisher::class, 'publisher_id');
     }
 
     public function getCoverImageUrlAttribute()
