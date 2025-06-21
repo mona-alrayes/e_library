@@ -7,6 +7,24 @@ use App\Http\Requests\StorePublisherRequest;
 
 class PublisherController extends Controller
 {
+
+
+    public function index()
+    {
+        $paginator = Publisher::paginate(10);
+
+        $paginator->getCollection()->transform(function ($publisher) {
+            return [
+                'id' => $publisher->id,
+                'name' => $publisher->PName,
+                'country' => $publisher->Country,
+            ];
+        });
+
+        return self::paginated($paginator, null, 'Publishers retrieved successfully', 200);
+    }
+
+
     public function store(StorePublisherRequest $request)
     {
         $publisher = Publisher::create($request->validated());

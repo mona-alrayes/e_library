@@ -39,4 +39,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/publishers/search', [PublisherController::class, 'search']);
     Route::get('/publishers/{id}/books', [PublisherController::class, 'showBooks']);
+    Route::get('/authors', [AuthorController::class, 'index']);
+    Route::get('/publishers', [PublisherController::class, 'index']);
 });

@@ -7,6 +7,24 @@ use App\Http\Requests\StoreAuthorRequest;
 
 class AuthorController extends Controller
 {
+    public function index()
+    {
+        $paginator = Author::paginate(10);
+
+        $paginator->getCollection()->transform(function ($author) {
+            return [
+                'id' => $author->id,
+                'fName' => $author->FName,
+                'lName' => $author->LName,
+                'country' => $author->Country,
+                'city' => $author->City,
+                'address' => $author->Address,
+            ];
+        });
+
+        return self::paginated($paginator, null, 'Authors retrieved successfully', 200);
+    }
+
     public function store(StoreAuthorRequest $request)
     {
         $author = Author::create($request->validated());
