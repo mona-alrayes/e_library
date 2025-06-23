@@ -10,7 +10,7 @@ class BookSeeder extends Seeder
 {
     public function run(): void
     {
-        $covers = [
+       $covers = [
             'book1.jpg', 'book2.jpg', 'book3.jpg', 'book4.jpg', 'book5.jpg',
             'book6.jpg', 'book7.jpg', 'book8.jpg', 'book9.jpg', 'book10.jpg',
         ];
@@ -30,13 +30,22 @@ class BookSeeder extends Seeder
 
         foreach ($books as $index => $book) {
             $originalCover = $covers[$index];
-            $extension = pathinfo($originalCover, PATHINFO_EXTENSION);
-            $newFilename = 'book_covers/' . Str::uuid() . '.' . $extension;
+            $sourcePath = "book_covers/$originalCover";
 
-            Storage::disk('public')->put($newFilename, Storage::disk('public')->get("book_covers/$originalCover"));
+            if (Storage::disk('public')->exists($sourcePath)) {
+                $extension = pathinfo($originalCover, PATHINFO_EXTENSION);
+                $newFilename = 'book_covers/' . Str::uuid() . '.' . $extension;
+
+                $fileContents = Storage::disk('public')->get($sourcePath);
+                Storage::disk('public')->put($newFilename, $fileContents);
+
+                $book['cover_image'] = $newFilename;
+            } else {
+                $book['cover_image'] = null;
+                logger()->warning("Cover image not found: $sourcePath");
+            }
 
             Book::create(array_merge($book, [
-                'cover_image' => $newFilename,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]));
