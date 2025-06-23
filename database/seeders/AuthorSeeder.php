@@ -7,51 +7,14 @@ use App\Models\Author;
 
 class AuthorSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        $authors = [
-            [
-                'FName' => 'أحمد',
-                'LName' => 'الراشدي',
-                'Country' => 'مصر',
-                'City' => 'القاهرة',
-                'Address' => 'شارع التحرير',
-            ],
-            [
-                'FName' => 'ليلى',
-                'LName' => 'محمد',
-                'Country' => 'المغرب',
-                'City' => 'الرباط',
-                'Address' => 'شارع النصر',
-            ],
-            [
-                'FName' => 'سامي',
-                'LName' => 'العلي',
-                'Country' => 'السعودية',
-                'City' => 'الرياض',
-                'Address' => 'شارع الملك فهد',
-            ],
-            [
-                'FName' => 'منى',
-                'LName' => 'الفيصل',
-                'Country' => 'الإمارات',
-                'City' => 'دبي',
-                'Address' => 'شارع الشيخ زايد',
-            ],
-            [
-                'FName' => 'خالد',
-                'LName' => 'النجار',
-                'Country' => 'الأردن',
-                'City' => 'عمان',
-                'Address' => 'شارع الملكة رانيا',
-            ],
-        ];
-
-        foreach ($authors as $author) {
-            Author::create($author);
-        }
+        Author::insert([
+            ['FName' => 'Dan', 'LName' => 'Brown', 'Country' => 'USA', 'City' => 'Exeter', 'Address' => '123 Harvard Ave'],
+            ['FName' => 'J.K.', 'LName' => 'Rowling', 'Country' => 'UK', 'City' => 'Edinburgh', 'Address' => '7 Private Drive'],
+            ['FName' => 'George', 'LName' => 'Orwell', 'Country' => 'UK', 'City' => 'Motihari', 'Address' => '44 Main Street'],
+            ['FName' => 'Stephen', 'LName' => 'King', 'Country' => 'USA', 'City' => 'Portland', 'Address' => '1313 Elm St'],
+            ['FName' => 'Agatha', 'LName' => 'Christie', 'Country' => 'UK', 'City' => 'Torquay', 'Address' => '22 Murder St'],
+        ]);
     }
 }

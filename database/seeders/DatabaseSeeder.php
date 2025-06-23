@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use BookSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -22,7 +24,8 @@ class DatabaseSeeder extends Seeder
          $this->call([
             AuthorSeeder::class,
             PublisherSeeder::class,
-            AdminUserSeeder::class
+            AdminUserSeeder::class,
+            BookSeeder::class,
         ]);
     }
 }
