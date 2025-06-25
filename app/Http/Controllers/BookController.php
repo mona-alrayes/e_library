@@ -11,7 +11,7 @@ class BookController extends Controller
     public function index()
     {
         // Get paginated books with relationships, e.g. 10 per page
-        $paginator = Book::with(['author', 'publisher'])->paginate(10);
+        $paginator = Book::with(['author', 'publisher'])->paginate(20);
 
         // Append 'cover_image_url' to each book in the collection
         $paginator->getCollection()->transform(function ($book) {

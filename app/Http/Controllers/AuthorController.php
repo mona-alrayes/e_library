@@ -9,7 +9,7 @@ class AuthorController extends Controller
 {
     public function index()
     {
-        $paginator = Author::paginate(10);
+        $paginator = Author::paginate(20);
 
         $paginator->getCollection()->transform(function ($author) {
             return [

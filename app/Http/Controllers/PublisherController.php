@@ -11,7 +11,7 @@ class PublisherController extends Controller
 
     public function index()
     {
-        $paginator = Publisher::paginate(10);
+        $paginator = Publisher::paginate(20);
 
         $paginator->getCollection()->transform(function ($publisher) {
             return [
