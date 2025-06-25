@@ -92,6 +92,8 @@ class PublisherController extends Controller
                         'type' => $book->Type,
                         'price' => $book->Price,
                         'coverImage' => $book->CoverImage,
+                        'author_id' => $book->author_id,
+                        'publisher_id' => $book->publisher_id,
                     ];
                 }),
             ],
